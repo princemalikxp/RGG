@@ -1,32 +1,38 @@
-async function fetchRandomAnimeGif() {
-    const apiKey = 'AIzaSyAtRbVWltUMe3MHMUqiaEfZm1844lZ9Ymc'; // Replace with your Tenor API key
-    const limit = 1; // Number of gifs to retrieve
+document.addEventListener("DOMContentLoaded", function () {
+    const playButton = document.getElementById('playButton');
+    const gifContainer = document.getElementById('gifContainer');
 
-    const apiUrl = `https://api.tenor.com/v1/random?q=anime&key=${apiKey}&limit=${limit}`;
+    playButton.addEventListener('click', function () {
+        fetchRandomAnimeGif();
+    });
 
-    try {
-        const response = await fetch(apiUrl, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
+    async function fetchRandomAnimeGif() {
+        const apiKey = 'qG0FZ6oNPwcvNswx35dzHHuHfsY9qDSy'; // Replace with your Giphy API key
+        const limit = 1; // Number of gifs to retrieve
 
-        console.log('Response Status:', response.status);
+        const apiUrl = `https://api.giphy.com/v1/gifs/random?api_key=${apiKey}&tag=anime&rating=g&limit=${limit}`;
 
-        const responseData = await response.json();
-        console.log('Response Data:', responseData);
+        try {
+            const response = await fetch(apiUrl);
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            if (data.data) {
+                const gifUrl = data.data.image_original_url;
+                displayGif(gifUrl);
+            } else {
+                console.error('No gifs found in the response data:', data);
+            }
+        } catch (error) {
+            console.error('Error fetching or parsing data:', error);
         }
-
-        if (responseData.results && responseData.results.length > 0) {
-            const gifUrl = responseData.results[0].media[0].gif.url;
-            displayGif(gifUrl);
-        } else {
-            console.error('No gifs found in the response data:', responseData);
-        }
-    } catch (error) {
-        console.error('Error fetching or parsing data:', error);
     }
-}
+
+    function displayGif(gifUrl) {
+        gifContainer.innerHTML = `<img src="${gifUrl}" alt="Random Anime Gif" style="max-width: 100%;">`;
+    }
+});
