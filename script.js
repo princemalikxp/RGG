@@ -32,9 +32,21 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function applyBackgroundGif(gifUrl) {
-        document.body.style.backgroundImage = `url(${gifUrl})`;
-        document.body.style.backgroundSize = 'cover';
-        document.body.style.backgroundRepeat = 'no-repeat';
-        document.body.style.backgroundPosition = 'center';
+        document.body.innerHTML = `
+            <video id="backgroundVideo" autoplay loop muted playsinline>
+                <source src="${gifUrl}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div id="content">
+                <!-- Your page content goes here -->
+                <button id="playButton">Play Random Anime Gif</button>
+            </div>
+        `;
+
+        const backgroundVideo = document.getElementById('backgroundVideo');
+        backgroundVideo.addEventListener('loadeddata', function () {
+            // The video is loaded, play it
+            backgroundVideo.play();
+        });
     }
 });
