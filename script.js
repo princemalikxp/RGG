@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
     const playButton = document.getElementById('playButton');
-    const gifContainer = document.getElementById('gifContainer');
 
     playButton.addEventListener('click', function () {
         fetchRandomAnimeGif();
@@ -23,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (data.data) {
                 const gifUrl = data.data.image_original_url;
-                displayGif(gifUrl);
+                applyBackgroundGif(gifUrl);
             } else {
                 console.error('No gifs found in the response data:', data);
             }
@@ -32,7 +31,10 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    function displayGif(gifUrl) {
-        gifContainer.innerHTML = `<img src="${gifUrl}" alt="Random Anime Gif" style="max-width: 100%;">`;
+    function applyBackgroundGif(gifUrl) {
+        document.body.style.backgroundImage = `url(${gifUrl})`;
+        document.body.style.backgroundSize = 'cover';
+        document.body.style.backgroundRepeat = 'no-repeat';
+        document.body.style.backgroundPosition = 'center';
     }
 });
