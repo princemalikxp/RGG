@@ -11,17 +11,20 @@ async function fetchRandomAnimeGif() {
             },
         });
 
+        console.log('Response Status:', response.status);
+
+        const responseData = await response.json();
+        console.log('Response Data:', responseData);
+
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
-        const data = await response.json();
-
-        if (data.results && data.results.length > 0) {
-            const gifUrl = data.results[0].media[0].gif.url;
+        if (responseData.results && responseData.results.length > 0) {
+            const gifUrl = responseData.results[0].media[0].gif.url;
             displayGif(gifUrl);
         } else {
-            console.error('No gifs found in the response data:', data);
+            console.error('No gifs found in the response data:', responseData);
         }
     } catch (error) {
         console.error('Error fetching or parsing data:', error);
