@@ -1,5 +1,5 @@
 async function fetchRandomAnimeGif() {
-    const apiKey = 'YOUR_TENOR_API_KEY'; // Replace with your Tenor API key
+    const apiKey = 'AIzaSyAtRbVWltUMe3MHMUqiaEfZm1844lZ9Ymc'; // Replace with your Tenor API key
     const limit = 1; // Number of gifs to retrieve
 
     const apiUrl = `https://api.tenor.com/v1/random?q=anime&key=${apiKey}&limit=${limit}`;
