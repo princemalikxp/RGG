@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     const playButton = document.getElementById('playButton');
+    const backgroundDiv = document.getElementById('backgroundDiv');
 
     playButton.addEventListener('click', function () {
         fetchRandomAnimeGif();
@@ -32,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function applyBackgroundGif(gifUrl) {
-        document.body.style.cssText = `
+        backgroundDiv.style.cssText = `
             background: url(${gifUrl}) no-repeat center center fixed;
             background-size: cover;
             animation: fadeIn 2s ease-in-out;
